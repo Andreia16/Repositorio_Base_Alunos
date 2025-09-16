@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loja Online - Carrossel de Produtos</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Loja Online</h1>
+    <p>Confira nossos produtos em destaque!</p>
+  </header>
+
+  <section class="carousel-container">
+    <button class="carousel-btn prev-btn" aria-label="Produto anterior">‹</button>
+    <div class="carousel">
+      <ul class="carousel-track">
+        <li class="product-card">
+          <img src="https://via.placeholder.com/300x200?text=Produto+1" alt="Produto 1" />
+          <h2>Smartphone X1</h2>
+          <p>Smartphone moderno com tela AMOLED e câmera dupla.</p>
+          <span class="price">R$ 1.999,00</span>
+          <button class="buy-btn">Comprar</button>
+        </li>
+        <li class="product-card">
+          <img src="https://via.placeholder.com/300x200?text=Produto+2" alt="Produto 2" />
+          <h2>Notebook Pro 15"</h2>
+          <p>Notebook leve, potente e bateria de longa duração.</p>
+          <span class="price">R$ 4.599,00</span>
+          <button class="buy-btn">Comprar</button>
+        </li>
+        <li class="product-card">
+          <img src="https://via.placeholder.com/300x200?text=Produto+3" alt="Produto 3" />
+          <h2>Fone de Ouvido Wireless</h2>
+          <p>Som cristalino e cancelamento de ruído ativo.</p>
+          <span class="price">R$ 399,00</span>
+          <button class="buy-btn">Comprar</button>
+        </li>
+        <li class="product-card">
+          <img src="https://via.placeholder.com/300x200?text=Produto+4" alt="Produto 4" />
+          <h2>Smartwatch Fit</h2>
+          <p>Monitoramento cardíaco e resistência à água.</p>
+          <span class="price">R$ 799,00</span>
+          <button class="buy-btn">Comprar</button>
+        </li>
+      </ul>
+    </div>
+    <button class="carousel-btn next-btn" aria-label="Próximo produto">›</button>
+  </section>
+
+  <footer>
+    <p>© 2025 Loja Online. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    const track = document.querySelector('.carousel-track');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    const products = Array.from(track.children);
+    const productWidth = products[0].getBoundingClientRect().width;
+
+    // Posiciona os produtos lado a lado
+    products.forEach((product, index) => {
+      product.style.left = productWidth * index + 'px';
+    });
+
+    let currentIndex = 0;
+
+    function moveToProduct(index) {
+      track.style.transform = 'translateX(-' + products[index].style.left + ')';
+      currentIndex = index;
+      updateButtons();
+    }
+
+    function updateButtons() {
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === products.length - 1;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        moveToProduct(currentIndex - 1);
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < products.length - 1) {
+        moveToProduct(currentIndex + 1);
+      }
+    });
+
+    updateButtons();
+  </script>
+</body>
+</html>
